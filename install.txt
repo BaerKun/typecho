@@ -1,0 +1,41 @@
+# Ubuntu
+
+sudo apt update && sudo apt upgrade -y
+sudo apt install apache2 mysql-server php libapache2-mod-php php-mysql php-pdo php-mbstring -y
+
+
+# mysql
+sudo mysql
+
+CREATE DATABASE typecho DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE USER '<username>'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON typecho.* TO 'username'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+
+
+# apache
+sudo a2enmod rewrite
+sudo nano /etc/apache2/sites-enabled/000-default.conf
+
+在 <VirtualHost *:80> 内加入
+<Directory /var/www/html>
+    AllowOverride All
+</Directory>
+
+sudo systemctl restart apache2
+
+ 
+sudo rm /var/www/html/index.html
+
+cd <path_to_typecho>
+sudo cp -r admin install usr var index.php install.php /var/www/html
+
+cd /var/www/html
+sudo chown -R www-data:www-data .
+sudo chmod -R 755 .
+
+# 在浏览器访问localhost
+
+# 安装完成后
+sudo rm install.php
