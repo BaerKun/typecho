@@ -1,0 +1,18 @@
+sudo install php-xdebug
+
+
+# /etc/php/*.*/cli/php.ini 末尾写入
+zend_extension=xdebug.so
+
+[xdebug]
+xdebug.mode=debug
+xdebug.start_with_request=yes
+xdebug.discover_client_host=1
+xdebug.client_port=9003
+
+
+php -S localhost:8000 -t <path_to_typecho>
+# php -S localhost:8000 -t /home/beak/wksp/typecho
+
+# 在phpstorm点击开始侦听PHP调试连接
+# 然后浏览器访问localhost:8000即可
